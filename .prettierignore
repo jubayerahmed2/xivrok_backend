@@ -1,6 +1,8 @@
-.env*
-.env.sample
-*.evn
 
-node_modules
-*.config.js
+/.vscode
+/node_modules
+./dist
+
+*.env
+.env
+.env.*
