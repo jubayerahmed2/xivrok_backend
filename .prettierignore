@@ -1,0 +1,6 @@
+.env*
+.env.sample
+*.evn
+
+node_modules
+*.config.js
