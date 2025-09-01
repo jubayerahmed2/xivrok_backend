@@ -1,3 +1,3 @@
-const DB_NAME = "xivrok";
+const DB_NAME = "test-xivrok";
 
 export { DB_NAME };
