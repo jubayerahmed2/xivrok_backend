@@ -13,7 +13,12 @@ const loadEnvs = () => {
 
         "CLOUDINARY_CLOUD_NAME",
         "CLOUDINARY_API_KEY",
-        "CLOUDINARY_API_SECRET"
+        "CLOUDINARY_API_SECRET",
+
+        "NODEMAILER_USER_EMAIL",
+        "NODEMAILER_PASS",
+        "NODEMAILER_HOST",
+        "SMTP_USER"
     ];
 
     requiredEnvVars.forEach((envVar) => {
@@ -34,7 +39,12 @@ const loadEnvs = () => {
 
         CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME,
         CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY,
-        CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET
+        CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET,
+
+        NODEMAILER_USER_EMAIL: process.env.NODEMAILER_USER_EMAIL,
+        NODEMAILER_PASS: process.env.NODEMAILER_PASS,
+        NODEMAILER_HOST: process.env.NODEMAILER_HOST,
+        SMTP_USER: process.env.SMTP_USER
     };
 };
 
