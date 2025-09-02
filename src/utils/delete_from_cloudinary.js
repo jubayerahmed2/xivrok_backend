@@ -1,6 +1,6 @@
 import cloudinary from "cloudinary";
 import { extractPublicId } from "cloudinary-build-url";
-import { ApiError } from "./api_error";
+import { ApiError } from "./api_error.js";
 
 const removeFromCloudinary = async (url, resource_type) => {
     try {

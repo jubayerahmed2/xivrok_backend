@@ -1,6 +1,6 @@
 import cloudinary from "cloudinary";
 import fs from "fs";
-import envVariables from "../config/env";
+import envVariables from "../config/env.js";
 
 cloudinary.v2.config({
     cloud_name: envVariables.CLOUDINARY_CLOUD_NAME,
@@ -15,10 +15,6 @@ const uploadOnCloudinary = async (localFile) => {
         const uploadedFile = await cloudinary.v2.uploader.upload(localFile, {
             resource_type: "auto"
         });
-
-        console.log(
-            `Cloudinary file uploaded successfully url: ${uploadedFile.url}`
-        );
 
         fs.unlinkSync(localFile);
         return uploadedFile;

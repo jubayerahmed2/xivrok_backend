@@ -18,7 +18,10 @@ app.use(express.static("public"));
 
 // import routes
 import authRouter from "./routes/auth.route.js";
+import userRouter from "./routes/user.route.js";
 
 // routes declaration
 app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/users", userRouter);
+
 export { app };

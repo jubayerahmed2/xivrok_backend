@@ -4,7 +4,7 @@ import { logoutUser } from "../controllers/auth/logout.controller.js";
 import { refreshAccessToken } from "../controllers/auth/refresh_access_token.controller.js";
 import { registerUser } from "../controllers/auth/register.controller.js";
 import { verifyCode } from "../controllers/auth/verify_code.controller.js";
-import { verifyJWT } from "../middlewares/verify_jwt.js";
+import { verifyJWT } from "../middlewares/verify_jwt.middleware.js";
 import {
     loginValidation,
     resisterValidation,
