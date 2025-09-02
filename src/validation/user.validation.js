@@ -38,11 +38,11 @@ const updateUserSchema = z.object({
     fullname: z.string().trim().optional(),
     category: z.string().trim().optional(),
     bio: z.string().trim().optional(),
-    country: z.string().trim().optional(),
-    avatar: imageSchema
+    country: z.string().trim().optional()
 });
 
 export const resisterValidation = validate(registerValidationSchema);
 export const loginValidation = validate(loginValidationSchema);
 export const verifyCodeValidation = validate(verifyCodeSchema);
 export const updateUserValidation = validate(updateUserSchema);
+export const imageValidation = validate(imageSchema);
