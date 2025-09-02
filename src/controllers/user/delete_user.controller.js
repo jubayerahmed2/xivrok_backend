@@ -17,7 +17,7 @@ const deleteUser = asyncHandler(async (req, res) => {
 
     const user = await UserModel.findById(userId);
 
-    const isPasswordCorrect = user.isPasswordCorrect(password);
+    const isPasswordCorrect = await user.isPasswordCorrect(password);
     if (!isPasswordCorrect) {
         throw new ApiError(409, "Incorrect password");
     }

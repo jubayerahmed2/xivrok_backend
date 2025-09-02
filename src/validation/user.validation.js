@@ -26,14 +26,6 @@ const verifyCodeSchema = z.object({
     code: z.string("verify code is required")
 });
 
-const imageSchema = z
-    .object({
-        mimetype: z.enum(["image/jpeg", "image/png", "image/webp"]),
-        size: z.number().max(5 * 1024 * 1024, "Image must be <= 5MB"),
-        path: z.string() // the local file path multer gives
-    })
-    .optional();
-
 const updateUserSchema = z.object({
     fullname: z.string().trim().optional(),
     category: z.string().trim().optional(),
@@ -41,8 +33,12 @@ const updateUserSchema = z.object({
     country: z.string().trim().optional()
 });
 
+const deleteUserSchema = z.object({
+    password: z.string("Password is required").trim()
+});
+
 export const resisterValidation = validate(registerValidationSchema);
 export const loginValidation = validate(loginValidationSchema);
 export const verifyCodeValidation = validate(verifyCodeSchema);
 export const updateUserValidation = validate(updateUserSchema);
-export const imageValidation = validate(imageSchema);
+export const passwordValidation = validate(deleteUserSchema);
