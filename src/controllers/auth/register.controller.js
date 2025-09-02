@@ -56,9 +56,7 @@ const registerUser = asyncHandler(async (req, res) => {
         const verifyEmail = await verifyEmailSendAndUpdate(email, fullname);
 
         if (verifyEmail.rejected?.length) {
-            return res
-                .status(500)
-                .json(new ApiResponse(500, null, "Email not sent"));
+            throw new ApiError(500, "Email not sent");
         }
 
         return res
@@ -97,9 +95,7 @@ const registerUser = asyncHandler(async (req, res) => {
         // remove user from database
         await UserModel.findByIdAndDelete(newUser._id);
 
-        return res
-            .status(404)
-            .json(new ApiResponse(404, null, "Invalid email address"));
+        throw new ApiError(404, "Invalid email address");
     }
 
     const user = await UserModel.findById(newUser._id).select(
@@ -107,10 +103,10 @@ const registerUser = asyncHandler(async (req, res) => {
     );
 
     return res
-        .status(200)
+        .status(201)
         .json(
             new ApiResponse(
-                200,
+                201,
                 user,
                 "Register user successfully. Verification email sent"
             )

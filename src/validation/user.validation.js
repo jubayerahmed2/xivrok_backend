@@ -21,5 +21,11 @@ const loginValidationSchema = z.object({
         .trim()
 });
 
+const verifyCodeSchema = z.object({
+    email: z.email("Email is required").trim().toLowerCase(),
+    code: z.string("verify code is required")
+});
+
 export const resisterValidation = validate(registerValidationSchema);
 export const loginValidation = validate(loginValidationSchema);
+export const verifyCodeValidation = validate(verifyCodeSchema);
