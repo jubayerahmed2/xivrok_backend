@@ -3,12 +3,14 @@ import { UserModel } from "../../models/user.model.js";
 import { ApiError } from "../../utils/api_error.js";
 import { ApiResponse } from "../../utils/api_response.js";
 import { asyncHandler } from "../../utils/async_handler.js";
+import { removeFromCloudinary } from "../../utils/delete_from_cloudinary.js";
 
 const deleteUser = asyncHandler(async (req, res) => {
     /*
     -> get password from request body 
     -> match password, if incorrect password throw error 
     -> is password correct, delete user from DB 
+    -> delete avatar 
     -> return response  
     */
 
@@ -18,8 +20,14 @@ const deleteUser = asyncHandler(async (req, res) => {
     const user = await UserModel.findById(userId);
 
     const isPasswordCorrect = await user.isPasswordCorrect(password);
+    console.log(isPasswordCorrect);
+
     if (!isPasswordCorrect) {
         throw new ApiError(409, "Incorrect password");
+    }
+
+    if (user?.avatar) {
+        const deleteAvatar = await removeFromCloudinary(user.avatar);
     }
 
     await UserModel.findByIdAndDelete(userId);
