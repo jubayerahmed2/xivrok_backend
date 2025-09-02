@@ -30,9 +30,8 @@ const aiSchema = new mongoose.Schema(
         launchedAt: {
             type: Date
         },
-        isDeleted: {
-            type: Boolean,
-            default: false
+        batch: {
+            type: String
         }
     },
     { timestamps: true }

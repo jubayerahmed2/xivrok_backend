@@ -1,7 +1,7 @@
-import { ApiResponse } from "./api_response.js";
+import { ApiError } from "./api_error.js";
 
 const validate = (schema) => {
-    return (req, res, next) => {
+    return (req, _, next) => {
         try {
             req.body = schema.parse(req.body);
             next();
@@ -9,9 +9,7 @@ const validate = (schema) => {
             const result = schema.safeParse(req.body);
             const message = JSON.parse(result.error?.message);
 
-            return res
-                .status(400)
-                .json(new ApiResponse(400, message[0].message));
+            throw new ApiError(400, message[0].message);
         }
     };
 };

@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
+import aggregatePaginate from "mongoose-aggregate-paginate-v2";
 import envVariables from "../config/env.js";
 
 const userSchema = new mongoose.Schema(
@@ -37,12 +38,6 @@ const userSchema = new mongoose.Schema(
             enum: ["user", "admin"],
             default: "user"
         },
-        favorites: [
-            {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "AI"
-            }
-        ],
         recentViewedAis: [
             {
                 type: mongoose.Schema.Types.ObjectId,
@@ -82,6 +77,9 @@ const userSchema = new mongoose.Schema(
         timestamps: true
     }
 );
+
+// for better pagination experience
+userSchema.plugin(aggregatePaginate);
 
 // middleware to hash password when modify password
 userSchema.pre("save", async function (next) {

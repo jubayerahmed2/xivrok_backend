@@ -12,18 +12,15 @@ const updataUserDetails = asyncHandler(async (req, res) => {
     const userId = req.user._id;
 
     const { fullname, bio, category, country } = req.body;
-    const filledFields = {};
-
-    function pushNonEmptyField(name, value) {
-        if (value) {
-            filledFields[name] = value;
-        }
-    }
-
-    pushNonEmptyField("fullname", fullname);
-    pushNonEmptyField("bio", bio);
-    pushNonEmptyField("category", category);
-    pushNonEmptyField("country", country);
+    const filledFields = Object.entries({
+        fullname,
+        bio,
+        category,
+        country
+    }).reduce((acc, [key, value]) => {
+        if (value) acc[key] = value;
+        return acc;
+    }, {});
 
     const user = await UserModel.findByIdAndUpdate(
         userId,

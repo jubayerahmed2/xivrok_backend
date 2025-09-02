@@ -3,6 +3,7 @@ import { ApiError } from "../../utils/api_error.js";
 import { ApiResponse } from "../../utils/api_response.js";
 import { asyncHandler } from "../../utils/async_handler.js";
 import { removeFromCloudinary } from "../../utils/delete_from_cloudinary.js";
+import { removeTemporaryFile } from "../../utils/remove_temp_file.js";
 import { uploadOnCloudinary } from "../../utils/upload_on_cloudinary.js";
 
 const updateAvatar = asyncHandler(async (req, res) => {
@@ -10,6 +11,7 @@ const updateAvatar = asyncHandler(async (req, res) => {
     const userId = req.user._id;
 
     if (!avatarLocalFile) {
+        removeTemporaryFile(avatarLocalFile);
         throw new ApiError(400, "Avatar is required");
     }
 
