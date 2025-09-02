@@ -10,12 +10,12 @@ export const verifyEmailSendAndUpdate = async (email, fullname) => {
     expiryDate.setHours(expiryDate.getHours() + 1);
 
     await UserModel.updateOne(
-        { "emails.email": email },
+        { email },
         {
             $set: {
-                "emails.$.verifyCode": verifyCode,
-                "emails.$.verifyCodeExpiry": expiryDate,
-                "emails.$.isVerified": false
+                verifyCode: verifyCode,
+                verifyCodeExpiry: expiryDate,
+                isVerified: false
             }
         }
     );

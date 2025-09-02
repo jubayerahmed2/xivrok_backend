@@ -3,6 +3,7 @@ import { UserModel } from "../../models/user.model.js";
 import { ApiError } from "../../utils/api_error.js";
 import { ApiResponse } from "../../utils/api_response.js";
 import { asyncHandler } from "../../utils/async_handler.js";
+import { verifyEmailSendAndUpdate } from "./register.controller.js";
 
 export const generateAccessAndRefreshToken = async (userId) => {
     try {
@@ -28,6 +29,7 @@ const loginUser = asyncHandler(async (req, res) => {
     -> validate via zod 
     -> check if email exist 
     -> check password valid using - isPasswordCorrect method 
+    -> check is email verified, if not resent email 
     -> generate access and refresh token 
     -> return response 
     */
@@ -40,10 +42,31 @@ const loginUser = asyncHandler(async (req, res) => {
         throw new ApiError(404, "User with the email address not exist");
     }
 
-    const isPasswordCorrect = await UserModel.isPasswordCorrect(password);
+    const isPasswordCorrect = await user.isPasswordCorrect(password);
 
     if (isPasswordCorrect) {
         throw new ApiError(409, "Incorrect credential");
+    }
+
+    if (!user.isVerified) {
+        const verifyEmail = await verifyEmailSendAndUpdate(
+            user.email,
+            user.fullname
+        );
+
+        if (verifyEmail.rejected?.length) {
+            throw new ApiError(500, "Verification email not sent");
+        }
+
+        return res
+            .status(200)
+            .json(
+                new ApiResponse(
+                    200,
+                    null,
+                    "Email not verified. verification email sent"
+                )
+            );
     }
 
     const { accessToken, refreshToken } = await generateAccessAndRefreshToken(
