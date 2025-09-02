@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
-import envVariables from "../config/env";
+import envVariables from "../config/env.js";
 
 const userSchema = new mongoose.Schema(
     {
@@ -62,6 +62,9 @@ const userSchema = new mongoose.Schema(
         isVerified: {
             type: Boolean,
             default: false
+        },
+        verifyCode: {
+            type: String
         },
         verifyExpiry: {
             type: Date
