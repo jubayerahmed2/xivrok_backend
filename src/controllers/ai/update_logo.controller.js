@@ -18,7 +18,9 @@ const updateAiLogo = asyncHandler(async (req, res) => {
     const logoLocalFile = req.file?.path;
     const { aiId } = req.params;
 
-    if (logoLocalFile) {
+    console.log(logoLocalFile);
+
+    if (!logoLocalFile) {
         removeTemporaryFile(logoLocalFile);
         throw new ApiError(400, "Logo is required");
     }

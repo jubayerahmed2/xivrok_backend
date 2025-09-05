@@ -9,13 +9,11 @@ const getUsers = asyncHandler(async (req, res) => {
     -> return response except - password, refreshToken  
     */
 
-    const {
-        limit = 10,
-        page = 1,
-        query = "",
-        sortBy = "createdAt", // isPremium, role, category, country, status
-        sortType = "asc" // or dec
-    } = req.query;
+    const limit = Number(req.query.limit) || 10;
+    const page = Number(req.query.page) || 1;
+    const query = req.query.query || "";
+    const sortBy = req.query.sortBy || "createdAt";
+    const sortType = req.query.sortType === "desc" ? -1 : 1;
 
     const options = {
         limit,
@@ -49,6 +47,7 @@ const getUsers = asyncHandler(async (req, res) => {
     ]);
 
     const users = await UserModel.aggregatePaginate(aggregateUsers, options);
+    console.log(users);
 
     return res.status(200).json(new ApiResponse(200, users, "Fetched users"));
 });

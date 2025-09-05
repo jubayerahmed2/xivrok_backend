@@ -19,11 +19,13 @@ app.use(express.static("public"));
 // import routes
 import aiRouter from "./routes/ai.route.js";
 import authRouter from "./routes/auth.route.js";
+import promptRouter from "./routes/prompt.route.js";
 import userRouter from "./routes/user.route.js";
 
 // routes declaration
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/ais", aiRouter);
+app.use("/api/v1/prompts", promptRouter);
 
 export { app };

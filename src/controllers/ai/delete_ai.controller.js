@@ -1,5 +1,6 @@
 import { AiModel } from "../../models/ai.model.js";
 import { FavoriteModal } from "../../models/favorite.model.js";
+import { ApiError } from "../../utils/api_error.js";
 import { ApiResponse } from "../../utils/api_response.js";
 import { asyncHandler } from "../../utils/async_handler.js";
 
@@ -15,7 +16,11 @@ const deleteAi = asyncHandler(async (req, res) => {
 
     await FavoriteModal.deleteMany({ AI: aiId });
 
-    await await AiModel.findByIdAndDelete(aiId);
+    const ai = await await AiModel.findByIdAndDelete(aiId);
+
+    if (!ai) {
+        throw new ApiError(404, "AI does not exist");
+    }
 
     return res
         .status(200)

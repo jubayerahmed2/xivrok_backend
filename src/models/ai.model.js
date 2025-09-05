@@ -14,6 +14,10 @@ const aiSchema = new mongoose.Schema(
             type: String,
             required: true
         },
+        bestCategory: {
+            type: String,
+            required: true
+        },
         tags: [{ type: String, required: true, trim: true }],
         usage: {
             type: mongoose.Schema.Types.ObjectId,

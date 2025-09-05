@@ -19,7 +19,7 @@ import {
 const router = Router();
 
 router.use(verifyJWT);
-router.route("/details").get(getUserDetails);
+router.route("/user-details").get(getUserDetails);
 
 router.route("/recent-viewed-ais/:aiId").patch(UpdateRecentView);
 router.route("/update").patch(updateUserValidation, updataUserDetails);

@@ -5,6 +5,7 @@ const aiValidationSchema = z.object({
     name: z.string("name is required").trim(),
     description: z.string("description is required").trim(),
     category: z.string("category is required").trim(),
+    bestCategory: z.string("category is required").trim(),
     tags: z.array(z.string("at least one tag is required")),
     usage: z.string().optional(),
     // logo: validate manualy

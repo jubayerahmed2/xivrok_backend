@@ -20,6 +20,7 @@ const createAi = asyncHandler(async (req, res) => {
         name,
         description,
         category,
+        bestCategory,
         tags,
         usage, // tutorial Id
         liveLink,
@@ -45,8 +46,10 @@ const createAi = asyncHandler(async (req, res) => {
         name,
         description,
         category,
+        bestCategory,
         tags,
         usage,
+        logo: logo.url,
         liveLink,
         launchedAt,
         batch
