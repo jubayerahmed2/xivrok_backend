@@ -41,4 +41,12 @@ const aiSchema = new mongoose.Schema(
     { timestamps: true }
 );
 
+aiSchema.index({
+    name: "text",
+    description: "text",
+    category: "text",
+    bestCategory: "text",
+    tags: "text"
+});
+
 export const AiModel = mongoose.model("AI", aiSchema);
